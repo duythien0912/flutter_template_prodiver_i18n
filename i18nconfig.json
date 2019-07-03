@@ -1,0 +1,15 @@
+{
+    "defaultLocale": "en-US",
+    "locales": [
+        "en-US",
+        "vi-VN"
+    ],
+    "localePath": "i18n",
+    "generatedPath": "lib/generated",
+    "ltr": [
+        "en-US",
+        "vi-VN"
+    ],
+    "rtl": [],
+    "googleTranslateApiKey": "AIzaSyBdgGduJs1lcEGWsmiq_QOGTRrBoACfykI"
+}
