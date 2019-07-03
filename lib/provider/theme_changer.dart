@@ -13,7 +13,7 @@ class ThemeChanger with ChangeNotifier {
 
   setTheme(ThemeData theme) {
     _themeData = theme;
-    _updateBar(_themeData);
+    _updateBar(theme);
 
     notifyListeners();
   }
