@@ -103,12 +103,35 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
+  Image _imageBg;
+  Image _imageMusic;
+
   ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
+    _imageBg = Image.asset(
+      "assets/img/music4.jpg",
+      fit: BoxFit.cover,
+      alignment: Alignment.topCenter,
+      gaplessPlayback: true,
+    );
+    _imageMusic = Image.asset(
+      "assets/img/music1.jpg",
+      fit: BoxFit.cover,
+      gaplessPlayback: true,
+    );
+
     _scrollController = new ScrollController();
     _scrollController.addListener(() => setState(() {}));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(_imageBg.image, context);
+    precacheImage(_imageMusic.image, context);
   }
 
   @override
@@ -157,11 +180,7 @@ class _MusicScreenState extends State<MusicScreen> {
                               bottomLeft: Radius.circular(25.0),
                               // bottomRight: Radius.circular(25.0),
                             ),
-                            child: Image.asset(
-                              "assets/img/music4.jpg",
-                              fit: BoxFit.cover,
-                              alignment: Alignment.topCenter,
-                            ),
+                            child: _imageBg,
                           ),
                         ),
                         // Container(
@@ -182,7 +201,10 @@ class _MusicScreenState extends State<MusicScreen> {
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.only(
+                              bottom: 16.0,
+                              left: 32,
+                            ),
                             child: titleText(),
                           ),
                         )
@@ -197,7 +219,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     sliver: SliverList(
                       delegate: new SliverChildBuilderDelegate(
                         (context, index) {
-                          if (index > 3) return null;
+                          // if (index > 3) return null;
                           return buildItemMusic(index);
                         },
                       ),
@@ -241,10 +263,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   topLeft: Radius.circular(7.0),
                   topRight: Radius.circular(7.0),
                 ),
-                child: Image.asset(
-                  "assets/img/music1.jpg",
-                  fit: BoxFit.cover,
-                ),
+                child: _imageMusic,
               ),
             ),
             Expanded(
