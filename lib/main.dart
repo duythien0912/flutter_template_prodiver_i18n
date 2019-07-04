@@ -1,4 +1,3 @@
-import 'package:audio_app/theme/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          builder: (_) => MainProvider(),
+          builder: (_) => AudioAppProvider(),
         ),
         ChangeNotifierProvider(
           builder: (_) => ThemeChanger(
@@ -105,26 +104,7 @@ class MusicScreen extends StatefulWidget {
 class _MusicScreenState extends State<MusicScreen> {
   Image _imageBg;
   Image _imageMusic;
-
   ScrollController _scrollController;
-  @override
-  void initState() {
-    super.initState();
-    _imageBg = Image.asset(
-      "assets/img/music4.jpg",
-      fit: BoxFit.cover,
-      alignment: Alignment.topCenter,
-      gaplessPlayback: true,
-    );
-    _imageMusic = Image.asset(
-      "assets/img/music1.jpg",
-      fit: BoxFit.cover,
-      gaplessPlayback: true,
-    );
-
-    _scrollController = new ScrollController();
-    _scrollController.addListener(() => setState(() {}));
-  }
 
   @override
   void didChangeDependencies() {
@@ -141,98 +121,22 @@ class _MusicScreenState extends State<MusicScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    double dheight = MediaQuery.of(context).size.height;
-    double headerh = dheight * 1 / 3;
-
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.play_arrow),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            top: 0,
-            left: 0,
-            child: Center(
-              child: CustomScrollView(
-                controller: _scrollController,
-                slivers: <Widget>[
-                  SliverAppBar(
-                    backgroundColor: Colors.white,
-                    // title: titleText(),
-                    expandedHeight: headerh,
-                    // pinned: true,
-                    floating: false,
-                    flexibleSpace: new FlexibleSpaceBar(
-                        background: Stack(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(25.0),
-                              // bottomRight: Radius.circular(25.0),
-                            ),
-                            child: _imageBg,
-                          ),
-                        ),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topCenter,
-                        //       end: Alignment.bottomCenter,
-                        //       colors: [
-                        //         const Color(0x00000000),
-                        //         const Color(0x00000000),
-                        //         const Color(0x00000000),
-                        //         const Color.fromRGBO(255, 193, 46, 0.3),
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   // height: screenHeight * 0.45,
-                        // ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 16.0,
-                              left: 32,
-                            ),
-                            child: titleText(),
-                          ),
-                        )
-                      ],
-                    )),
-                  ),
-                  SliverPadding(
-                    padding: EdgeInsets.only(
-                      top: 20,
-                      bottom: 20,
-                    ),
-                    sliver: SliverList(
-                      delegate: new SliverChildBuilderDelegate(
-                        (context, index) {
-                          // if (index > 3) return null;
-                          return buildItemMusic(index);
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          _buildFab(headerh),
-        ],
-      ),
+  void initState() {
+    super.initState();
+    _imageBg = Image.asset(
+      "assets/img/music5.jpg",
+      fit: BoxFit.cover,
+      alignment: Alignment.topCenter,
+      gaplessPlayback: true,
     );
+    _imageMusic = Image.asset(
+      "assets/img/music5.jpg",
+      fit: BoxFit.cover,
+      gaplessPlayback: true,
+    );
+
+    _scrollController = new ScrollController();
+    _scrollController.addListener(() => setState(() {}));
   }
 
   Widget buildItemMusic(int index) => Container(
@@ -355,6 +259,114 @@ class _MusicScreenState extends State<MusicScreen> {
         color: Colors.white,
         fontSize: 24,
         fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double dheight = MediaQuery.of(context).size.height;
+    double headerh = dheight * 1 / 3;
+
+    return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   child: Icon(Icons.play_arrow),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            top: 0,
+            left: 0,
+            child: Center(
+              child: NestedScrollView(
+                // physics: ClampingScrollPhysics(),
+                controller: _scrollController,
+                headerSliverBuilder:
+                    (BuildContext context, bool boxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+                      // title: titleText(),
+                      expandedHeight: headerh,
+                      pinned: false,
+                      // floating: true,
+                      // snap: true,
+
+                      flexibleSpace: new FlexibleSpaceBar(
+                        // collapseMode: CollapseMode.pin,
+                        background: Stack(
+                          children: <Widget>[
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(250, 250, 250, 1),
+                                boxShadow: [],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(25.0),
+                                  // bottomRight: Radius.circular(25.0),
+                                ),
+                                child: _imageBg,
+                              ),
+                            ),
+                            // ClipRRect(
+                            //   borderRadius: BorderRadius.only(
+                            //     bottomLeft: Radius.circular(25.0),
+                            //     // bottomRight: Radius.circular(25.0),
+                            //   ),
+                            //   child: Container(
+                            //     decoration: BoxDecoration(
+                            //       gradient: LinearGradient(
+                            //         begin: Alignment.topCenter,
+                            //         end: Alignment.bottomCenter,
+                            //         colors: [
+                            //           const Color(0x00000000),
+                            //           const Color(0x00000000),
+                            //           const Color(0x00000000),
+                            //           const Color.fromRGBO(250, 250, 250, 0.1),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     // height: screenHeight * 0.45,
+                            //   ),
+                            // ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 16.0,
+                                  left: 32,
+                                ),
+                                child: titleText(),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ];
+                },
+                body: Padding(
+                  padding: EdgeInsets.only(
+                    top: 20,
+                    bottom: 20,
+                  ),
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      if (index > 5) return null;
+                      return buildItemMusic(index);
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          _buildFab(headerh),
+        ],
       ),
     );
   }
